@@ -1,7 +1,0 @@
-GET http://localhost:5000/signup
-Content-Type: application/json
-{
-    "username":"suraj",
-    "password":"12",
-    "email":"suraj5@gmail.com"
-}
