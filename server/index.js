@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import authRoute from "./Routes/AuthRoute.js";
+import postsRoute from "./Routes/PostsRoute.js";
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use(
 app.use(express.json());
 
 app.use("/", authRoute);
+app.use("/posts", postsRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);

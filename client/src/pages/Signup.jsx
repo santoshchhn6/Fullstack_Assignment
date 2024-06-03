@@ -3,13 +3,14 @@ import { Input } from "../components/Input";
 import {
   email_validation,
   password_validation,
+  term_validation,
   username_validation,
 } from "../utils/inputValidations";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setUser } from "../redux/userSlice";
+import { setToken, setUser } from "../redux/userSlice";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -30,13 +31,14 @@ const Signup = () => {
     console.log(inputs);
     try {
       const { data } = await axios.post("http://localhost:5000/signup", inputs);
-      const { success, message, user } = data;
+      const { success, message, user, token } = data;
       if (success) {
         dispatch(setUser(user));
+        dispatch(setToken(token));
         handleSuccess(message);
         setTimeout(() => {
           navigate("/");
-        }, 1000);
+        }, 500);
         methods.reset();
       } else {
         handleError(message);
@@ -47,7 +49,7 @@ const Signup = () => {
   });
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-slate-300 p-3">
+    <div className="flex justify-center items-center min-h-screen bg-slate-300 p-3 text-gray-600">
       <div className="text-center bg-white p-8  rounded-xl shadow-md">
         <h2 className="text-teal-600 text-4xl font-bold mb-5">Signup</h2>
         <FormProvider {...methods}>
@@ -58,6 +60,7 @@ const Signup = () => {
             <Input {...email_validation} />
             <Input {...username_validation} />
             <Input {...password_validation} />
+            <Input {...term_validation} />
 
             <button
               onClick={onSubmit}

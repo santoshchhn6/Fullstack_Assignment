@@ -54,3 +54,12 @@ export const password_validation = {
     },
   },
 };
+
+export const term_validation = {
+  type: "checkbox",
+  name: "acceptTerms",
+  label: "Accept Terms & Conditions",
+  validation: {
+    required: "Please accept term and condition",
+  },
+};

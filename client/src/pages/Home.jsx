@@ -13,6 +13,7 @@ const Home = () => {
       position: "top-right",
     });
   }, [navigate]);
+
   return (
     <div>
       <Posts />

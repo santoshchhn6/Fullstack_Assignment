@@ -4,7 +4,7 @@ import { MdError } from "react-icons/md";
 import { isFormInvalid } from "../utils/isFormInvalid";
 import { findInputError } from "../utils/findInputError";
 
-export const Input = ({ type, placeholder, validation, name }) => {
+export const Input = ({ label, type, placeholder, validation, name }) => {
   const {
     register,
     formState: { errors },
@@ -13,14 +13,37 @@ export const Input = ({ type, placeholder, validation, name }) => {
   const inputError = findInputError(errors, name);
   const isInvalid = isFormInvalid(inputError);
 
+  const getInput = (type) => {
+    switch (type) {
+      case "checkbox":
+        return (
+          <div className="flex items-center gap-2">
+            <input type={type} name={name} {...register(name, validation)} />
+            <label htmlFor={name}>{label}</label>
+          </div>
+        );
+
+      default:
+        return (
+          <input
+            type={type}
+            className="w-full py-2 px-3 font-medium bg-slate-100 border rounded-md border-slate-300 outline-teal-600"
+            placeholder={placeholder}
+            {...register(name, validation)}
+          />
+        );
+    }
+  };
+
   return (
     <div className="flex flex-col w-full gap-2">
-      <input
+      {getInput(type)}
+      {/* <input
         type={type}
-        className="w-full py-2 px-3 font-medium bg-slate-100 border rounded-md border-slate-300 "
+        className="w-full py-2 px-3 font-medium bg-slate-100 border rounded-md border-slate-300 outline-teal-600"
         placeholder={placeholder}
         {...register(name, validation)}
-      />
+      /> */}
       <AnimatePresence mode="wait" initial={false}>
         {isInvalid && (
           <InputError

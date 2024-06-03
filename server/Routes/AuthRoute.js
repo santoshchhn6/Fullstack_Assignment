@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post("/signup", Signup);
 router.post("/login", Login);
-router.post("/", tokenVarification);
+// router.post("/", tokenVarification);
 
 export default router;

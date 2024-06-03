@@ -5,10 +5,15 @@ import bcrypt from "bcryptjs";
 export const Signup = async (req, res, next) => {
   try {
     const { email, password, username, createAt } = req.body;
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
       return res.json({ message: "Email already exists" });
     }
+    const existingUsername = await User.findOne({ username });
+    if (existingUsername) {
+      return res.json({ message: "Username already exists" });
+    }
+
     const user = await User.create({ email, password, username, createAt });
     const token = createSecretToken(user._id.toString());
 
